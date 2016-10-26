@@ -5,6 +5,7 @@ extern int yyparse();
 
 %option noyywrap
 
+
 texte  [a-zA-z]+
 entier [0-9]+(\.[0-9])?
 
@@ -29,6 +30,7 @@ entier [0-9]+(\.[0-9])?
 "atan" return(ATAN);
 "sqrt" return(ROOT);
 "pow" return(POW);
+"exp" return(EXP);
 "\n" return(END);
 {texte} return(ERROR);
 %%
