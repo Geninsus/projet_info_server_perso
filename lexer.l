@@ -12,9 +12,11 @@ entier [0-9]+(\.[0-9])?
 %%
 
 {entier} { yylval.num = atoi(yytext); return(NUMBER);}
-
 "pi" return(PI);
+"[" return(OC);
+"]" return(CC);
 "," return(SEP);
+";" return(SECO);
 "(" return(OP);
 ")" return(CP);
 "+" return(ADD);

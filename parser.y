@@ -7,11 +7,11 @@ extern int yylex();
 extern void yyerror(char const* msg);
 %}
 
-%union {double num;}
+%union {double num;char text;}
 
 /* CARACTERES */
 %token <num> NUMBER PI
-%token OP CP SEP END
+%token <char> OP CP OC CC SEP SECO END
 
 /* TRIGO */
 %token COS SIN TAN
@@ -29,10 +29,15 @@ extern void yyerror(char const* msg);
 %token ERROR
 
 %type <num> calclist exp factor term
-%start calclist
+%start line
 %%
-calclist: /* nothing */
- | calclist exp END {cout << $2 << endl;}
+line:
+  | calclist {cout << " : " << $1 << endl;return $1; }
+  /*| conditions*/
+  ;
+calclist: /* nothing */ {}
+ | calclist exp END {$$ = $2;}
+ //| conditions
  ;
 exp: factor
  | exp ADD factor { $$ = $1 + $3; }
@@ -45,6 +50,9 @@ factor: term
 term: NUMBER
  | OP exp CP {$$ = $2;}
  ;
+/*conditions:
+ | OC NUMBER SECO NUMBER SECO NUMBER CC {int min = $2;int max = $4;}
+ ;*/
 %%
 
 
