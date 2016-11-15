@@ -1,7 +1,7 @@
 all: bison flex main.cpp
 	g++ parser.cpp lexer.cpp main.cpp -o parser
 	rm lexer.cpp parser.cpp parser.hpp
-	./parser
+	./parser "(1+2)"
 bison: parser.y
 	bison -o parser.cpp parser.y
 flex: lexer.l

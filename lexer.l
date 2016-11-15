@@ -11,16 +11,16 @@ entier [0-9]+(\.[0-9])?
 
 %%
 
-{entier} { yylval.num = atoi(yytext); return(ENTIER);}
+{entier} { yylval.num = atoi(yytext); return(NUMBER);}
 
 "pi" return(PI);
 "," return(SEP);
-"(" return(LPAR);
-")" return(RPAR);
-"+" return(PLUS);
-"-" return(LESS);
-"*" return(TIME);
-"/" return(DIVIDE);
+"(" return(OP);
+")" return(CP);
+"+" return(ADD);
+"-" return(SUB);
+"*" return(MUL);
+"/" return(DIV);
 "%" return (MODULO);
 "sin" return(SIN);
 "cos" return(COS);
