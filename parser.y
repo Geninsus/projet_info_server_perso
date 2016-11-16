@@ -4,6 +4,8 @@
 #include <math.h>
 using namespace std;
 extern int yylex();
+int xmin;
+int xmax;
 extern void yyerror(char const* msg);
 %}
 
@@ -19,7 +21,7 @@ extern void yyerror(char const* msg);
 /* CALCUL */
 %token ADD SUB
 %token MUL DIV
-%token ROOT POW MODULO EXP ABS
+%token ROOT POW MODULO EXP ABS NEG
 
 /* CALCUL ORDER */
 %left ADD SUB
@@ -32,12 +34,11 @@ extern void yyerror(char const* msg);
 %start line
 %%
 line:
-  | calclist {cout << " : " << $1 << endl;return $1; }
-  /*| conditions*/
+  | calclist {return $1; }
+  | OC term SECO term CC {xmin=$2;xmax=$4;}
   ;
 calclist: /* nothing */ {}
  | calclist exp END {$$ = $2;}
- //| conditions
  ;
 exp: factor
  | exp ADD factor { $$ = $1 + $3; }
@@ -49,10 +50,8 @@ factor: term
  ;
 term: NUMBER
  | OP exp CP {$$ = $2;}
+ | NEG NUMBER {$$= -$2;}
  ;
-/*conditions:
- | OC NUMBER SECO NUMBER SECO NUMBER CC {int min = $2;int max = $4;}
- ;*/
 %%
 
 
